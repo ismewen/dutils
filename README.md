@@ -118,7 +118,9 @@ an custom filter on viewset,
 
 GET /v1/users/?name=ethan&id__gt=3
 
+```python
 query = Users.objects.all().filter(name=ethan).filter(id__gt=3)
+```
 
 ### decorators  
 #### class_method_retry

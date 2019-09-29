@@ -12,7 +12,7 @@ Some useful utils, BaseClass, decorator for drf development
 ## QuickStart
 
 ### Serializer
-inherit from ModelSerializer,add a process_initial_data method to process init data, so we can format data in serializer
+Inherit from ModelSerializer, add a `process_initial_data` method to process init data, so we can format data in serializer
 
 Usage:
 
@@ -44,7 +44,8 @@ user = s.save()
 
 
 ### NestedModelField
-according to identifier serialise to model 
+
+serialise to model instance According to `lookup_field` in model and `looup_field_name` in data
 
 Usage:
 ```python
@@ -112,6 +113,10 @@ Now, your project has the following four urls
 - /v1/users/{user_pk}/emails/{email_pk}/ # allow http action `GET`, `Delete`, `Patch` 
 - /v1/users/{user_pk}/emails/ # allow http action `Get`, `Post'
 
+### StateMachine
+
+combined [transitions](https://github.com/pytransitions/transitions) with django model. 
+
 ### q
 
 an custom filter on viewset,
@@ -119,7 +124,7 @@ an custom filter on viewset,
 GET /v1/users/?name=ethan&id__gt=3
 
 ```python
-query = Users.objects.all().filter(name=ethan).filter(id__gt=3)
+query = Users.objects.all().filter(name="ethan").filter(id__gt=3)
 ```
 
 ### decorators  

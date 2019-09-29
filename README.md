@@ -117,9 +117,7 @@ Now, your project has the following four urls
 
 combined [transitions](https://github.com/pytransitions/transitions) with django model. 
 
-### q
-
-an custom filter on viewset,
+### filter support
 
 GET /v1/users/?name=ethan&id__gt=3
 

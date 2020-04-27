@@ -86,6 +86,13 @@ Now, your project has the following four urls
 combined [transitions](https://github.com/pytransitions/transitions) with django model. 
 
 ### filter support
+添加如下配置
+```python
+REST_FRAMEWORK = {
+
+    'DEFAULT_FILTER_BACKENDS': ("dutils.utils.q.DutilFilterBackend",)
+}
+```
 
 GET /v1/users/?q=name=ethan,id__gt=3
 
@@ -102,3 +109,21 @@ when specific error occurs, retry specific times after sleep second
 
 #### viewset_url_params_require
 define mandatory params, if not receive, raise `RequestQueryParamsMissing` Error
+
+example:
+
+```python
+class EmailViewSet(ViewSet):
+    name = "email"
+    path = "emails"
+    model = Email
+    serializer_class = EmailSerializer
+    
+    @viewset_url_params_require(["say", "hello"])
+    @action(list=True)
+    def say_hello(self, *args, **kwargs):
+        return "hello world"
+        
+url的查询参数中必须要包含say, hello 这两个参数
+
+```

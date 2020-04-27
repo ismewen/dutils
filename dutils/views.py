@@ -3,7 +3,6 @@ import copy
 from django.http import Http404
 from rest_framework.viewsets import ModelViewSet
 from . import exceptions
-from .utils.q import SimpleQueryFilter
 
 
 class ViewSet(ModelViewSet):
@@ -17,8 +16,7 @@ class ViewSet(ModelViewSet):
     registry = dict()
     model = None
     enable_filter = True
-    filter_cls = SimpleQueryFilter
-    filter_fields = []
+    dutils_filter_fields = []
 
     @classmethod
     def registry_name(cls):
@@ -69,11 +67,6 @@ class ViewSet(ModelViewSet):
 
     def get_queryset(self):
         queryset = self.model.objects.all()
-        if self.enable_filter:
-            q = SimpleQueryFilter(query_set=queryset,
-                                  query_params=self.request.query_params,
-                                  allow_fields=self.filter_fields)
-            queryset = q.get_filter_queryset()
         if hasattr(self, "action") and self.action == 'list':
             queryset = self.before_serializer_many(queryset)
         return queryset

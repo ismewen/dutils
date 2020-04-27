@@ -20,7 +20,7 @@ class DutilFilterBackend(BaseFilterBackend):
 
     @property
     def filter_fields(self):
-        return self.view.jcy_filter_fields if hasattr(self.view, "jcy_filter_fields") else []
+        return self.view.dutils_filter_fields if hasattr(self.view, "dutils_filter_fields") else []
 
     @property
     def order_by(self):

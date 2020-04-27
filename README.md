@@ -48,6 +48,11 @@ class EmailViewSet(ViewSet):
     path = "emails"
     model = Email
     serializer_class = EmailSerializer
+    serializer_mapping = {
+        # 不同的操作使用不同的序列化器
+        "create": EmailCreateSerializer,
+        "update": EmailUpdateSerializer,
+    }
     
 class UserViewSet(ViewSet):
     name = "user"

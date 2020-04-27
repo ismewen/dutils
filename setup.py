@@ -2,7 +2,7 @@ import sys
 from setuptools import setup, find_packages
 
 setup(
-    name='rachel',
+    name='dutils',
     version='0.1.0',
     license='MIT',
     author='Ethan',

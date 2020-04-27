@@ -1,47 +1,12 @@
 ## Introduction
-Some useful utils, BaseClass, decorator for drf development
-
+drf开发的工具类
 ## Installation
 
-    pip install rachel 
-    
-... or clone the repo from GitHub and then:
+clone the repo from GitHub and then:
 
     python setup.py install
 
 ## QuickStart
-
-### Serializer
-Inherit from ModelSerializer, add a `process_initial_data` method to process init data, so we can format data in serializer
-
-Usage:
-
-```python
-
-from django.db import models
-from rachel.serializers import Serializer
-
-class User(models.Model):
-    name = models.CharField('name',max_length=256,null=True, blank=True)
-
-
-class UserSerializer(Serializer):
-    
-    class Meta:
-        model = User
-        fields = '__all__'
-    
-    def process_initial_data(self):
-        if "name" not in self.initial_data and "user_name" in self.initial_data:
-            self.initial_data['name'] = self.initial_data['user_name']
-
-data = {"user_name": "rachel"}
-
-s = UserSerializer(data=data)
-s.is_valid(raise_exception=True)
-user = s.save()
-```
-
 
 ### NestedModelField
 
@@ -50,8 +15,8 @@ serialise to model instance According to `lookup_field` in model and `looup_fiel
 Usage:
 ```python
 
-from rachel.serializers import Serializer
-from rachel.fields import NestedModelField
+from dutils.serializers import Serializer
+from dutils.fields import NestedModelField
 
 
 class Email(models.Model):
@@ -75,8 +40,8 @@ print(email, email.user)
 
 Usage:
 ```python
-from rachel.views import ViewSet 
-from rachel.routers import router
+from dutils.views import ViewSet 
+from dutils.routers import router
 
 class EmailViewSet(ViewSet):
     name = "email"
@@ -88,6 +53,9 @@ class UserViewSet(ViewSet):
     name = "user"
     path = "users"
     model = User
+    nested_viewsets = [
+        EmailViewSet
+    ]
     serializer_class = UserSeriliazer    
     filter_fields = "name","id"
 
@@ -98,7 +66,7 @@ router.custom_register(UserViewSet)
 add urls in your project urls
 
 ```python
-from rachel.routers import router
+from dutils.routers import router
 # must discovery all viewset
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
@@ -119,13 +87,16 @@ combined [transitions](https://github.com/pytransitions/transitions) with django
 
 ### filter support
 
-GET /v1/users/?name=ethan&id__gt=3
+GET /v1/users/?q=name=ethan,id__gt=3
+
+生成的查询语句如下
 
 ```python
 query = Users.objects.all().filter(name="ethan").filter(id__gt=3)
 ```
 
 ### decorators  
+
 #### class_method_retry
 when specific error occurs, retry specific times after sleep second
 

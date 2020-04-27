@@ -1,7 +1,7 @@
 import time
 from functools import wraps
 
-from rachel.exceptions import RequestQueryParamsMissing
+from dutils.exceptions import RequestQueryParamsMissing
 
 
 def class_method_retry(times, errors=(Exception,), delay=None):

@@ -9,10 +9,4 @@ setup(
     author_email='ismewen@163.com',
     description="",
     packages=find_packages(),
-    install_requires=[
-        "Django==2.2.5",
-        "djangorestframework==3.10.3",
-        "Werkzeug==0.16.0",
-        "transitions==0.7.1"
-    ]
 )

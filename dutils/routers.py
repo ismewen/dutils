@@ -30,7 +30,7 @@ class CustomRouter(SimpleRouter):
         if prefix == "%s/%s" % (path, path):
             prefix = path
 
-        self.register(prefix=prefix, viewset=viewset, basename=self.basename_prefix + basename, base_name=base_name)
+        self.register(prefix=prefix, viewset=viewset, basename=self.basename_prefix + basename)
         parent_prefix = "{parent_prefix}{variable_parent_name}/(?P<{parent_name_detail}>[^/.]+)".format(
             parent_prefix=parent_prefix,
             parent_name_detail=name + ("_%s" % detail_suffix if detail_suffix else ""),
